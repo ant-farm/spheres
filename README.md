@@ -11,7 +11,9 @@
 
 Inline-style: 
 ![alt text](./images/GameStart.png)
+
 Inline-style: 
 ![alt text](./images/Gameplay.png)
+
 Inline-style: 
-![alt text](./images/instructions.png)
+![alt text](./images/Instructions.png)
