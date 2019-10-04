@@ -16,15 +16,15 @@
 
 <br>
 Game Start
-<br>
+
 ![alt text](./images/GameStart.png)
 
 <br>
 Gameplay
-<br>
+
 ![alt text](./images/Gameplay.png)
 
 <br>
 Instructions
-<br>
+
 ![alt text](./images/Instructions.png)
