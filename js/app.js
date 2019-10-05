@@ -72,8 +72,8 @@ console.log(ctx); // cool, our rendering context is set up
 //class
 class Sphere {
 	constructor(){
-		this.x = 500,
-		this.y = 300,
+		this.x = Math.floor(Math.random() * 600),
+		this.y = Math.floor(Math.random() * 600),
 		this.radius = 5,
 		this.color = '#cc5500',
 		this.speed = 10
@@ -89,13 +89,13 @@ class Sphere {
 // <-------------------------------------------->
 
 const game ={
-//created a function that will generate a sphere
-generateSphere(){
-	let sphere1 = new Sphere
-	return sphere1.draw()
-
-}
-
+	//created a function that will generate a sphere
+	generateSpheres(){
+		for(let i = 0; i < 50; i++){
+			let spheres = new Sphere
+			spheres.draw()
+		}
+	}
 }
 
 
@@ -107,7 +107,7 @@ generateSphere(){
 // 	generateSphere()
 // })
 document.getElementById('start-game').addEventListener('click', (event) => {
-	game.generateSphere();
+	game.generateSpheres();
 })
 
 
