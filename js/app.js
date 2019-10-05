@@ -1,64 +1,3 @@
-// class Sphere {
-// 	constructor(color) {
-// 		this.width = 15;
-// 		this.height = 15;
-// 		this.colorOptions = ["blue", "red", "yellow"];
-// 		this.color = this.colorOptions[Math.floor(Math.random()*this.colorOptions.length)]
-// 	}
-	
-// 	draw() {
-// 		// let $sphere1 = $('.sphere1')
-// 		// $sphere1.css({ 
-// 		// 	'width':  'px',
-// 		// 	'height': 'px', 
-// 		// 	'background-color': '#cc5500',
-// 		// 	'bottom': '50px'
-// 		}
-	
-
-// 	update() {
-// 		let $sphere1 = $('.sphere1')
-// 		$sphere1.css({'bottom': '100px'})
-// 		// this.top = 50;
-// 		// this.left = 50;
-// 	}
-// }
-
-
-
-// let game = {
-
-// 	newSphere: null,
-
-// 	spheres: [],
-
-// 	start() {
-// 		//when start is clicked 
-// 		this.newSphere = new Sphere()
-// 		let $container = $('#container')
-// 		$('.container').append(this.newSphere)
-
-		
-// 	}
-
-
-
-
-// 	// startMoving(){
-// 	// 	let interval = setInterval(() => {
-// 	// 		let $sphere = $('.sphere1')
-// 	// 		// $sphere.animate({
-// 	// 		// 	right: '5px',
-// 	// 		// 	bottom: '5px'
-// 	// 		// }500);
-// 	// 	}, 500);
-// 	// }
-// }
-// game.start()
-
-// const sphere1 = new Sphere()
-// // sphere1.draw();
-// console.log(sphere1);
 
 //canvas set up
 const canvas = document.getElementById('my-canvas');
@@ -84,17 +23,24 @@ class Sphere {
 		ctx.fillStyle = this.color
 		ctx.fill()
 	}
+	move(){
+
+	}
 }
 
 // <-------------------------------------------->
 
 const game ={
-	//created a function that will generate a sphere
+	//created a function that will generates spheres
 	generateSpheres(){
 		for(let i = 0; i < 50; i++){
 			let spheres = new Sphere
 			spheres.draw()
 		}
+	},
+
+	clearCanvas(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height)
 	}
 }
 
@@ -103,12 +49,11 @@ const game ={
 // ----------------------------------------
 // EVENT LISTENERS
 
-// ('.startGame').on('click', (event) => {
-// 	generateSphere()
-// })
 document.getElementById('start-game').addEventListener('click', (event) => {
 	game.generateSpheres();
 })
-
+document.getElementById('start-over').addEventListener('click', (event) => {
+	game.clearCanvas();
+})
 
 
