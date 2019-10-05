@@ -85,14 +85,16 @@ class Sphere {
 		ctx.fill()
 	}
 }
-let sphere1 = new Sphere
-sphere1.draw();
 
 // <-------------------------------------------->
 
 const game ={
+//created a function that will generate a sphere
+generateSphere(){
+	let sphere1 = new Sphere
+	return sphere1.draw()
 
-
+}
 
 }
 
@@ -101,6 +103,12 @@ const game ={
 // ----------------------------------------
 // EVENT LISTENERS
 
-// ('.startGame').on('click', (e) => {
-	
-// }
+// ('.startGame').on('click', (event) => {
+// 	generateSphere()
+// })
+document.getElementById('start-game').addEventListener('click', (event) => {
+	game.generateSphere();
+})
+
+
+
