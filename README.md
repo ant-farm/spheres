@@ -2,9 +2,9 @@
 
 -user chooses a color from a list of colors on the screen 
 <br>
--white screen appears and the cursor is a small blob of the chosen color
+-white screen appears and the cursor is a small sphere of the chosen color
 <br>
--other multi colored blobs appear and start moving around the screen in a random order
+-other multi colored spheres appear and start moving around the screen in a random order
 <br>
 -user must only merge with like-colored spheres
 <br>
