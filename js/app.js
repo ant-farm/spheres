@@ -9,7 +9,7 @@ const ctx = canvas.getContext('2d');
 //class
 class Sphere{
 	constructor(){
-
+		this.speed = 5;
 	}
 
 }
@@ -24,7 +24,8 @@ let y = 200;
 function animate(){
 
 	requestAnimationFrame(animate);
-
+	//this will clear the canvas each time the function runs. 700 numbers are the total width and height of the canvas itself
+	ctx.clearRect(0,0, 700, 700)
 	//created a circle
 	ctx.beginPath();
 	ctx.arc(x, y, 5, 0, Math.PI * 2);
@@ -32,6 +33,7 @@ function animate(){
 	ctx.fill();
 	// adding one to the x value every time the function runs. This creates movement 
 	x += 1
+	
 }
 const game ={
 
