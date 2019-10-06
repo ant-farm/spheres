@@ -17,7 +17,9 @@ class Sphere{
 
 // <-------------------------------------------->
 
-
+//Since the animate function will continuelly generate an image in the same location due to the hard coded x and y values, creating a variable so that number can change is what i did here
+let x = 200;
+let y = 200;
 //this function will be used to generate movement
 function animate(){
 
@@ -25,7 +27,7 @@ function animate(){
 
 	//created a circle
 	ctx.beginPath();
-	ctx.arc(100,100, 5, 0, Math.PI * 2);
+	ctx.arc(x, y, 5, 0, Math.PI * 2);
 	ctx.fillStyle = '#ff0000';
 	ctx.fill();
 }
