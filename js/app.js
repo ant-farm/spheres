@@ -30,6 +30,8 @@ function animate(){
 	ctx.arc(x, y, 5, 0, Math.PI * 2);
 	ctx.fillStyle = '#ff0000';
 	ctx.fill();
+	// adding one to the x value every time the function runs. This creates movement 
+	x += 1
 }
 const game ={
 
