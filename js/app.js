@@ -90,7 +90,10 @@ class MainSphere{
 	checkCollision(sphere){
 		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y){
 			console.log('collision');
+			game.points += 1
+			// game.numSpheres.pop([i])
 			return true;
+			
 		}
 		else return false;
 	}
@@ -108,22 +111,27 @@ const game = {
 
 	numSpheres: [],
 
+	points: 0,
+
 	create(){
-		for(let i = 0; i < 5; i++){
+		for(let i = 0; i < 50; i++){
 			this.numSpheres.push(new Sphere())
 		}
 	}, 
 
-	clearCanvas() {
-		ctx.clearRect(0,0,700, 700)
+	score(){
+		$('.points').text('Points: ' + this.points)
+
 	},
 
-	// check collision on the numspheres array do a loop?
-	checkForCollisions(){	
+	checkForCollisions(numSpheres){	
 		for(let i = 0; i < this.numSpheres.length; i++){
-			sphereMain.checkCollision(this.numSpheres[i])
-			
+			if(sphereMain.checkCollision(this.numSpheres[i])){
+				game.numSpheres.splice(i, 1)
+			}
+					
 		}
+
 	},
 
 
@@ -131,11 +139,15 @@ const game = {
 		for(let i = 0; i < this.numSpheres.length; i++){
 			this.numSpheres[i].changeDirAndMove()
 		}
+	},
+
+	clearCanvas() {
+		ctx.clearRect(0,0,700, 700)
 	}
 
 	
 }
-// let x = 0
+
 function animate(){
 
 
@@ -144,10 +156,7 @@ function animate(){
 	sphereMain.move()	
 	game.moveSpheres()
 	game.checkForCollisions()
-
-	// x++
-	// if(x === 10) {
-	// 	return
+	game.score()
 	
 
 	requestAnimationFrame(animate);
