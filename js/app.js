@@ -43,6 +43,52 @@ class Sphere{
 	}
 }
 
+class mainSphere{
+
+	constructor(){
+		this.x = 200;
+		this.y = 200;
+		this.radius = 5;
+		this.color = 'black';
+		this.speed = 5;
+		this.direction = {
+			up: false,
+			down: false,
+			right: false,
+			left: false
+		}
+	}
+
+
+	draw(){
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
+		ctx.fillStyle = 'black';
+		ctx.fill()
+	}
+	setDirection(key){
+		if(key == "ArrowUp") this.direction.up = true;
+	    if(key == "ArrowLeft") this.direction.left = true;
+	    if(key == "ArrowDown") this.direction.down = true;
+	    if(key == "ArrowRight") this.direction.right = true;
+	}
+	unsetDirection(key){
+		if(key == 'ArrowUp') this.direction.up = false;
+		if(key == 'ArrowDown') this.direction.down = false;
+		if(key == 'ArrowLeft') this.direction.left = false;
+		if(key == 'ArrowRight') this.direction.right = false;
+	}
+
+	move(direction){
+		if(this.direction.up) this.y -= this.speed;
+		if(this.direction.down) this.y += this.speed; 
+		if(this.direction.right) this.x += this.speed;
+		if(this.direction.left) this.x -= this.speed;
+		
+	}
+	// checkcollision()
+}
+
 
 // <-------------------------------------------->
 
@@ -63,44 +109,86 @@ class Sphere{
 // let radius = 5;
 
 //this function will be used to generate movement
+
 	
+let sphereMain = new mainSphere
+
 const game ={
 
 	numSpheres: [],
+
+	main: [],
 
 	create(){
 		for(let i = 0; i < 50; i++){
 			this.numSpheres.push(new Sphere)
 		}
+	}, 
+
+	// createMain(){
+	// 	let sphereMain = new mainSphere
+	// 	sphereMain.draw()
+	// 	sphereMain.move()
+
+	// },
+
+	clearCanvas() {
+		ctx.clearRect(0,0,700, 700)
 	}
 
 	
 }
+	
+
 
 function animate(){
 		requestAnimationFrame(animate);
 		//this will clear the canvas each time the function runs. 700 numbers are the total width and height of the canvas itself
 		ctx.clearRect(0,0, 700, 700); 
+		sphereMain.draw()
+		sphereMain.move()
+
+
 		// sphere.speed()
 			for(let i = 0; i < game.numSpheres.length; i++){
 			game.numSpheres[i].velocity()
 			}
 		}
-game.create()
-console.log(game.numSpheres);
-animate()
+
 // ----------------------------------------
 // EVENT LISTENERS
 
-// document.getElementById('start-game').addEventListener('click', (event) => {
-// 	game.generateSpheres()
-// })
-// document.getElementById('movement').addEventListener('click', (event) => {
-// 	animate()
-// })
-// document.getElementById('start-over').addEventListener('click', (event) => {
-// 	game.clearCanvas();
-// })
+$('#start-game').on('click', (event) => {
+	game.create()
+	// game.createMain()
+	animate()
+})
 
+document.getElementById('clear').addEventListener('click', (event) => {
+	game.clearCanvas()
+})
+
+document.getElementById('move').addEventListener('keydown', (event) => {
+	sphereMain.setDirection(event.key);
+})
+document.getElementById('move').addEventListener('keyup', (event) => {
+	sphereMain.unsetDirection(event.key);
+})
+
+// document.addEventListener('keydown', (event) => {
+// 	const key = event.'ArrowRight'
+// })
+// $('canvas').mouseenter(function(){
+// 	game.circleCursor().draw()
+// })
+// let mouseX = 0;
+// let mouseY = 0;
+
+// $('canvas').on('mousemove', setMousePosition, false){
+// 	mousePosition (event) => {
+// 		mouseX = e.clientX;
+// 		mouseY = e.clientX;
+// 	}
+// }
 
 
