@@ -89,8 +89,6 @@ class MainSphere{
 	}
 	checkCollision(sphere){
 		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y) {
-			console.log(game.user.color);
-			console.log(game.numSpheres.color);
 			// if(game.user.color === game.numSpheres[i].color)
 			// if sphere is same color as me
 				// game.points += 1
@@ -118,38 +116,103 @@ const game = {
 
 	user: null,
 
+	play: true,
+
+	numLevels: 3,
+
+	currentLevel: 1,
+
 
 
 	create(color){
 		let sphereMain = new MainSphere(color)
 		this.user = sphereMain
-		console.log(this.user);
 		for(let i = 0; i < 10; i++){
 			this.numSpheres.push(new Sphere())
+
 		}
 	}, 
 
 	score(){
 		$('.points').text('Points: ' + this.points)
-
+		$('.levels').text('Level: ' + this.currentLevel)
+		
 	},
+
 
 	checkForCollisions(numSpheres){	
 		for(let i = 0; i < this.numSpheres.length; i++){
 			if(this.user.checkCollision(this.numSpheres[i])){
 				if(this.user.color === this.numSpheres[i].color){
 					this.numSpheres.splice(i, 1)
-					game.points += 1;
-				// console.log('hitting');
-			} else{
-				console.log('gameover');
+					this.points += 1;
+				} else{
+					this.points -= 1;
 				}
 			}
-				
-			// if(this.user.color === game.numSpheres[i].color){
-			// 	console.log('h');
-			// }
+		}
+	},
+	
+	// see if user has gotten all the colors that match, return true if so
+	checkRemaining(){
+		let remainingSpheres = this.numSpheres;
+		let value = this.user;
 
+		// after the loop this will be false if there are still any 
+		// balls matching user color
+		let blueBallsAreGoneAndRoundShouldEnd = true // should only be true if no bb
+	
+		for(let i = 0; i < remainingSpheres.length; i++) {
+
+			// if this ball is blue
+			if(remainingSpheres[i].color === value.color) {
+
+				blueBallsAreGoneAndRoundShouldEnd = false;
+								
+				// change flag to false -- because we found a blue one
+
+				console.log('same color exists');
+
+			} 
+
+		}
+		
+		// now blueBallsAreGoneAndRoundShouldEnd contains true or false as appropriate
+
+		///=|=|=|=|=|=
+		if(blueBallsAreGoneAndRoundShouldEnd === true){
+			// document.write('round over')
+		}
+		// if we didn't find any (i.e all blue gone and round should end)
+			// this.nextLevel()
+
+		
+
+
+	},
+
+
+	nextLevel(){
+	
+		// this.create()
+
+		// call the level up function, increase the level by 1
+
+		// this.nextLevel()
+		// this.clearCanvas()
+		// this.currentLevels +=1		
+
+	},
+
+	gameOver(){
+		if(this.points < 0){
+			// this.play = false;
+			// let $gameover = $('gameover')
+			// let $body = $('body')
+			// $gameover.text('Gameover!').css('background-color', 'black')
+			// $body.append($gameover)
+			console.log('gameover');
+			this.clearCanvas()
 		}
 	},
 
@@ -166,7 +229,6 @@ const game = {
 	
 }
 
-console.log(game.user);
 function animate(){
 
 
@@ -175,7 +237,10 @@ function animate(){
 	game.user.draw()
 	game.moveSpheres()
 	game.checkForCollisions()
+	game.checkRemaining()
 	game.score()
+
+	game.gameOver()
 	
 
 	requestAnimationFrame(animate);
@@ -185,9 +250,6 @@ function animate(){
 // ----------------------------------------
 // EVENT LISTENERS
 
-// $('#start-game').on('click', (event) => {
-
-// })
 
 $('.color1').on('click', (event) => {
 	game.create('#0077cc')

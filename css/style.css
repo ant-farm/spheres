@@ -3,6 +3,10 @@
 	background-color: white;
 	/*z-index: 2 ;*/
 }
+/*#my-canvas{
+	background-color: white;
+	border: 1px solid black;
+}*/
 .color1{
 	background-color: #0077cc;
 	height: 30px;
@@ -40,22 +44,21 @@
 	position: relative;
 }
 
-.points{
+.stats{
 	top: 10px;
 	left: 10px;
 	position: absolute;
 	color: white;
-
 }
 
-section{
-	display: inline-block;
-
-}
 body{
 	background-color: black;
 }
 
+div {
+	display: inline-block;
+	right: 30px;
+}
 
 
 
