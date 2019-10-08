@@ -6,15 +6,16 @@ const ctx = canvas.getContext('2d');
 //class
 class Sphere{
 
+
 	constructor(){
-		// let color = ['#0077cc', '#ccbb00', '#ff0000'];
+		this.colors = ['#0077cc', '#cc0077', '#cc5500', '#00cc55'];
 		this.x = Math.random() * 700;
 		this.y = Math.random() * 700;
 		this.velocityX = (Math.random() - 0.5) * 5;
 		this.velocityY = (Math.random() - 0.5) * 5;
 		this.radius = 5;
-		this.color = '#ff0000';
-		// Math.floor(Math.random() * this.color.length)
+		this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
+
 	}
 
 	draw(){
@@ -46,11 +47,11 @@ class Sphere{
 
 class MainSphere{
 
-	constructor(){
+	constructor(color){
 		this.x = 200;
 		this.y = 200;
 		this.radius = 10;
-		this.color = 'black';
+		this.color = color; // use color instead
 		this.speed = 5;
 		this.direction = {
 			up: false,
@@ -60,11 +61,10 @@ class MainSphere{
 		}
 	}
 
-
 	draw(){
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
-		ctx.fillStyle = 'black';
+		ctx.fillStyle = this.color;
 		ctx.fill()
 	}
 	setDirection(key){
@@ -88,12 +88,18 @@ class MainSphere{
 		
 	}
 	checkCollision(sphere){
-		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y){
-			console.log('collision');
-			game.points += 1
-			// game.numSpheres.pop([i])
+		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y) {
+			console.log(game.user.color);
+			console.log(game.numSpheres.color);
+			// if(game.user.color === game.numSpheres[i].color)
+			// if sphere is same color as me
+				// game.points += 1
+		
+			// else
+				// points--
+				 	
+
 			return true;
-			
 		}
 		else return false;
 	}
@@ -104,17 +110,21 @@ class MainSphere{
 
 
 
-
-let sphereMain = new MainSphere()
-
 const game = {
 
 	numSpheres: [],
 
 	points: 0,
 
-	create(){
-		for(let i = 0; i < 50; i++){
+	user: null,
+
+
+
+	create(color){
+		let sphereMain = new MainSphere(color)
+		this.user = sphereMain
+		console.log(this.user);
+		for(let i = 0; i < 10; i++){
 			this.numSpheres.push(new Sphere())
 		}
 	}, 
@@ -126,14 +136,22 @@ const game = {
 
 	checkForCollisions(numSpheres){	
 		for(let i = 0; i < this.numSpheres.length; i++){
-			if(sphereMain.checkCollision(this.numSpheres[i])){
-				game.numSpheres.splice(i, 1)
+			if(this.user.checkCollision(this.numSpheres[i])){
+				if(this.user.color === this.numSpheres[i].color){
+					this.numSpheres.splice(i, 1)
+					game.points += 1;
+				// console.log('hitting');
+			} else{
+				console.log('gameover');
+				}
 			}
-					
+				
+			// if(this.user.color === game.numSpheres[i].color){
+			// 	console.log('h');
+			// }
+
 		}
-
 	},
-
 
 	moveSpheres(){
 		for(let i = 0; i < this.numSpheres.length; i++){
@@ -148,12 +166,13 @@ const game = {
 	
 }
 
+console.log(game.user);
 function animate(){
 
 
-	ctx.clearRect(0,0, 700, 700); 
-	sphereMain.draw()
-	sphereMain.move()	
+	game.user.move()
+	game.clearCanvas()
+	game.user.draw()
 	game.moveSpheres()
 	game.checkForCollisions()
 	game.score()
@@ -166,20 +185,34 @@ function animate(){
 // ----------------------------------------
 // EVENT LISTENERS
 
-$('#start-game').on('click', (event) => {
-	game.create()
+// $('#start-game').on('click', (event) => {
+
+// })
+
+$('.color1').on('click', (event) => {
+	game.create('#0077cc')
 	animate()
 })
 
-document.getElementById('clear').addEventListener('click', (event) => {
-	game.clearCanvas()
+$('.color2').on('click', (event) => {
+	game.create('#cc0077')
+	animate()
 })
 
-document.getElementById('move').addEventListener('keydown', (event) => {
-	sphereMain.setDirection(event.key);
+$('.color3').on('click', (event) => {
+	game.create('#cc5500')
+	animate()
 })
-document.getElementById('move').addEventListener('keyup', (event) => {
-	sphereMain.unsetDirection(event.key);
+
+$('.color4').on('click', (event) => {
+	game.create('#00cc55')
+	animate()
+})
+$('button').on('keydown', (event) => {
+	game.user.setDirection(event.key);
+})
+$('button').on('keyup', (event) => {
+	game.user.unsetDirection(event.key);
 })
 
 

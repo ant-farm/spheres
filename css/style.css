@@ -1,12 +1,61 @@
+#start-game{
+	position: absolute;
+	background-color: white;
+	/*z-index: 2 ;*/
+}
+.color1{
+	background-color: #0077cc;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: block;
+
+}
+
+.color2 {
+	background-color: #cc0077;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: block;
+}
+
+.color3{
+	background-color: #cc5500;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: block;
+}
+
+.color4 {
+	background-color: #00cc55;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: block;
+}
+
 .container {
 	position: relative;
 }
 
-canvas {
-	position: relative;
-	border: 1px solid black;
-	height: 600px;
-	width: 600px;
-	background-color: white;
+.points{
+	top: 10px;
+	left: 10px;
+	position: absolute;
+	color: white;
+
 }
+
+section{
+	display: inline-block;
+
+}
+body{
+	background-color: black;
+}
+
+
+
 
