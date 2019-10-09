@@ -7,25 +7,51 @@
 </head>
 <body>
 	<!-- <div id='container'> -->
-		
+		<div id='container'>
+
+		<div class='hidden'>
+			<img src='./images/1gameover.jpg'>
+		</div>
+		<div class='hidden-winner'>
+			<img src='./images/winner.png'>
+		</div>
+
 		<canvas id="my-canvas" width="700" height="700"></canvas>
-		<div>
-			<button class='color1'></button>
+	</div>
+	<br>
+
+		<div class='buttons'>
+			<!-- <p>Choose a color to begin</p> -->
+			<div>
+				<button class='clear-button' value='Refresh Page' onClick='window.location.reload();'></button>
+			</div>
+
+			<div>
+				<button class='color1'></button>
+			</div>
+			<div>
+				<button class='color2'></button>
+			</div>
+			<div>
+				<button class='color3'></button>
+			</div>
+			<div>
+				<button class='color4'></button>
+			</div>
 		</div>
-		<div>
-			<button class='color2'></button>
-		</div>
-		<div>
-			<button class='color3'></button>
-		</div>
-		<div>
-			<button class='color4'></button>
-		</div>
+
+
 
 	<!-- </div> -->
 	<div class='stats'>
+		<div class='timer'>Timer: </div> <br>
 		<div class='points'>Points: </div>	<br>
 		<div class='levels'>Level: </div>	
+	</div>
+	<div class='level'>
+		<div class='hidden-levelup'>
+			<img src="./images/leveledup.jpg">
+		</div>
 	</div>
 
 <script type="text/javascript" src='js/app.js'></script>

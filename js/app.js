@@ -3,11 +3,14 @@
 const canvas = document.getElementById('my-canvas');
 const ctx = canvas.getContext('2d');
 
+
+
 //class
 class Sphere{
 
 
 	constructor(){
+		
 		this.colors = ['#0077cc', '#cc0077', '#cc5500', '#00cc55'];
 		this.x = Math.random() * 700;
 		this.y = Math.random() * 700;
@@ -22,8 +25,9 @@ class Sphere{
 		
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		ctx.fillStyle = this.color
+		ctx.fillStyle =this.color
 		ctx.fill();
+
 	}
 
 	// make spheres move, bouncing off walls if necessary
@@ -65,7 +69,8 @@ class MainSphere{
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
 		ctx.fillStyle = this.color;
-		ctx.fill()
+		ctx.fill();
+
 	}
 	setDirection(key){
 		if(key == "ArrowUp") this.direction.up = true;
@@ -118,19 +123,24 @@ const game = {
 
 	play: true,
 
-	numLevels: 3,
+	numLevels: 5,
 
 	currentLevel: 1,
+
+	time: 80,
+
+	endGame: 0,
 
 
 
 	create(color){
 		let sphereMain = new MainSphere(color)
 		this.user = sphereMain
-		for(let i = 0; i < 10; i++){
-			this.numSpheres.push(new Sphere())
 
+		for(let i = 0; i < 15; i++){
+			this.numSpheres.push(new Sphere())
 		}
+		this.startTimer()
 	}, 
 
 	score(){
@@ -139,6 +149,20 @@ const game = {
 		
 	},
 
+	startTimer(){
+		let $timer = $('.timer')
+		let interval = setInterval (() => {
+			if(this.time === this.endGame){
+				// this.time = 0;
+				clearInterval(interval);
+			} else{
+				this.time -= 1
+			}
+
+			$timer.text(`Timer: ${this.time}s`)
+		}, 1000)
+		this.gameOver();
+	},
 
 	checkForCollisions(numSpheres){	
 		for(let i = 0; i < this.numSpheres.length; i++){
@@ -146,8 +170,11 @@ const game = {
 				if(this.user.color === this.numSpheres[i].color){
 					this.numSpheres.splice(i, 1)
 					this.points += 1;
+
 				} else{
-					this.points -= 1;
+					// this.points -= 1;
+					this.play = false;
+					this.gameOver()
 				}
 			}
 		}
@@ -171,7 +198,7 @@ const game = {
 								
 				// change flag to false -- because we found a blue one
 
-				console.log('same color exists');
+				// console.log('same color exists');
 
 			} 
 
@@ -182,37 +209,49 @@ const game = {
 		///=|=|=|=|=|=
 		if(blueBallsAreGoneAndRoundShouldEnd === true){
 			// document.write('round over')
+			this.levelUp();
+			this.currentLevel += 1
+			console.log('level up ')
+			// this.startTimer()
 		}
 		// if we didn't find any (i.e all blue gone and round should end)
-			// this.nextLevel()
-
-		
-
-
+		this.gameOver()
 	},
 
 
-	nextLevel(){
+	levelUp(){
 	
-		// this.create()
-
-		// call the level up function, increase the level by 1
-
-		// this.nextLevel()
-		// this.clearCanvas()
-		// this.currentLevels +=1		
-
+		for(let i = 0; i < 15; i++){
+			this.numSpheres.push(new Sphere())
+		}
+			$('.level').css('display','inline').fadeIn(2000).fadeOut(2000)
+			this.startTimer()
 	},
 
 	gameOver(){
 		if(this.points < 0){
-			// this.play = false;
-			// let $gameover = $('gameover')
-			// let $body = $('body')
-			// $gameover.text('Gameover!').css('background-color', 'black')
-			// $body.append($gameover)
-			console.log('gameover');
+			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('canvas').css('height', '0')
+			$('.stats').css('display','none')
 			this.clearCanvas()
+			console.log('gameover');
+		} else if(this.currentLevel === this.numLevels){
+			$('.hidden-winner').css('display', 'inline-block')
+			$('canvas').css('height', '0')
+			$('.stats').css('display','none')
+			console.log('You won!')
+			this.clearCanvas()
+		} else if(this.play === false){
+			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('canvas').css('height', '0')
+			$('.stats').css('display','none')
+			console.log('You lost!')
+			this.clearCanvas()
+		} else if(this.time === this.endGame){
+			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('canvas').css('height', '0')
+			$('.stats').css('display','none')
+			console.log('you lost')
 		}
 	},
 
@@ -229,6 +268,8 @@ const game = {
 	
 }
 
+
+
 function animate(){
 
 
@@ -239,37 +280,44 @@ function animate(){
 	game.checkForCollisions()
 	game.checkRemaining()
 	game.score()
-
-	game.gameOver()
 	
 
 	requestAnimationFrame(animate);
 }
 
-
 // ----------------------------------------
 // EVENT LISTENERS
 
+$('.clear-button').on('click', (event) => {
+	// game.clear()
+	// console.log('buton works')
+})
 
 $('.color1').on('click', (event) => {
+	$('.stats').css('display','inline')
 	game.create('#0077cc')
 	animate()
 })
 
 $('.color2').on('click', (event) => {
+	$('.stats').css('display','inline')
 	game.create('#cc0077')
 	animate()
 })
 
 $('.color3').on('click', (event) => {
+	$('.stats').css('display','inline')
 	game.create('#cc5500')
 	animate()
 })
 
 $('.color4').on('click', (event) => {
+	$('.stats').css('display','inline')
 	game.create('#00cc55')
 	animate()
 })
+
+
 $('button').on('keydown', (event) => {
 	game.user.setDirection(event.key);
 })

@@ -1,47 +1,54 @@
 #start-game{
 	position: absolute;
 	background-color: white;
-	/*z-index: 2 ;*/
 }
-/*#my-canvas{
-	background-color: white;
-	border: 1px solid black;
-}*/
-.color1{
-	background-color: #0077cc;
+
+.clear-button{
+	background: radial-gradient(circle at 15px 15px,#ffffff, #000);
 	height: 30px;
 	width: 30px;
 	border-radius: 50%;
 	display: block;
+	border: 0;
+}
+.color1{
+	background: radial-gradient(circle at 15px 15px, #0077cc, #000);
+	/*background-color: #0077cc;*/
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: block;
+	border: 0;
 
 }
 
 .color2 {
-	background-color: #cc0077;
+	background: radial-gradient(circle at 15px 15px, #cc0077, #000);
+	/*background-color: #cc0077;*/
 	height: 30px;
 	width: 30px;
 	border-radius: 50%;
 	display: block;
+	border: 0;
 }
 
 .color3{
-	background-color: #cc5500;
+	background: radial-gradient(circle at 15px 15px, #cc5500, #000);
+	/*background-color: #cc5500;*/
 	height: 30px;
 	width: 30px;
 	border-radius: 50%;
 	display: block;
+	border: 0;
 }
 
 .color4 {
-	background-color: #00cc55;
+	background: radial-gradient(circle at 15px 15px, #00cc55, #000);
 	height: 30px;
 	width: 30px;
 	border-radius: 50%;
 	display: block;
-}
-
-.container {
-	position: relative;
+	border: 0;
 }
 
 .stats{
@@ -49,6 +56,8 @@
 	left: 10px;
 	position: absolute;
 	color: white;
+	width: 50px;
+	display: none;
 }
 
 body{
@@ -59,6 +68,33 @@ div {
 	display: inline-block;
 	right: 30px;
 }
+p{
+	color: white;
+}
+.hidden{
+	display: none;
+	top: 50px;
+	left: 50px;
+}
 
+.hidden-winner{
+	display: none;
+	justify-content: center;
+}
 
+.level{
+	right: 10px;
+	top: 10px;
+	position: absolute;
+	display: none;
+
+}
+.container{
+	justify-content: center;
+	height: 700px;
+	width: 700px;
+}
+.buttons{
+	justify-content: center;
+}
 
