@@ -3,13 +3,16 @@
 	background-color: white;
 }
 
-.clear-button{
+#clear-button{
 	background: radial-gradient(circle at 15px 15px,#ffffff, #000);
 	height: 30px;
 	width: 30px;
 	border-radius: 50%;
 	display: block;
 	border: 0;
+	margin: 0;
+	display: none;
+	padding: 0;
 }
 .color1{
 	background: radial-gradient(circle at 15px 15px, #0077cc, #000);
@@ -56,25 +59,16 @@
 	left: 10px;
 	position: absolute;
 	color: white;
-	width: 50px;
+	text-align: center;
 	display: none;
-}
+	font-family: 'Work Sans', sans-serif;
 
-body{
-	background-color: black;
+	
 }
-
-div {
-	display: inline-block;
-	right: 30px;
-}
-p{
-	color: white;
-}
-.hidden{
+#hidden{
 	display: none;
-	top: 50px;
-	left: 50px;
+	top: 100px;
+	left: 45px;
 }
 
 .hidden-winner{
@@ -92,9 +86,28 @@ p{
 .container{
 	justify-content: center;
 	height: 700px;
-	width: 700px;
+	width: 800px;
 }
 .buttons{
 	justify-content: center;
+	margin: 0;
+	padding: 0;
+}
+.color-buttons{
+	justify-content: center;
+	position: relative;
+	bottom: 400px;
 }
 
+body{
+	background-color: black;
+	text-align: center;
+}
+
+div {
+	display: inline-block;
+	right: 30px;
+}
+p{
+	color: white;
+}

@@ -12,7 +12,7 @@ class Sphere{
 	constructor(){
 		
 		this.colors = ['#0077cc', '#cc0077', '#cc5500', '#00cc55'];
-		this.x = Math.random() * 700;
+		this.x = Math.random() * 800;
 		this.y = Math.random() * 700;
 		this.velocityX = (Math.random() - 0.5) * 5;
 		this.velocityY = (Math.random() - 0.5) * 5;
@@ -25,15 +25,24 @@ class Sphere{
 		
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-		ctx.fillStyle =this.color
+		ctx.fillStyle = this.color
 		ctx.fill();
+
+		let grad = ctx.createRadialGradient(this.x, this.y, this.radius, this.x , this.y , 2)
+		grad.addColorStop(0, this.color)
+		grad.addColorStop(1, '#000')
+
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
+		ctx.fillStyle = grad;
+		ctx.fill()
 
 	}
 
 	// make spheres move, bouncing off walls if necessary
 	changeDirAndMove(){
 		
-		if(this.x + this.radius > 700 || this.x - this.radius < 0){
+		if(this.x + this.radius > 800 || this.x - this.radius < 0){
 			// this will change the velocity from positive to negative, which will change it's direction on the x axis
 			this.velocityX = -this.velocityX
 		} 
@@ -68,8 +77,17 @@ class MainSphere{
 	draw(){
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
-		ctx.fillStyle = this.color;
+		ctx.fillStyle = this.color
 		ctx.fill();
+
+		let grad = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, 7)
+		grad.addColorStop(0, this.color)
+		grad.addColorStop(1, '#000')
+
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2)
+		ctx.fillStyle = grad;
+		ctx.fill()
 
 	}
 	setDirection(key){
@@ -94,14 +112,6 @@ class MainSphere{
 	}
 	checkCollision(sphere){
 		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y) {
-			// if(game.user.color === game.numSpheres[i].color)
-			// if sphere is same color as me
-				// game.points += 1
-		
-			// else
-				// points--
-				 	
-
 			return true;
 		}
 		else return false;
@@ -123,11 +133,11 @@ const game = {
 
 	play: true,
 
-	numLevels: 5,
+	numLevels: 3,
 
 	currentLevel: 1,
 
-	time: 80,
+	time: 100,
 
 	endGame: 0,
 
@@ -184,29 +194,17 @@ const game = {
 	checkRemaining(){
 		let remainingSpheres = this.numSpheres;
 		let value = this.user;
-
 		// after the loop this will be false if there are still any 
 		// balls matching user color
 		let blueBallsAreGoneAndRoundShouldEnd = true // should only be true if no bb
-	
 		for(let i = 0; i < remainingSpheres.length; i++) {
-
 			// if this ball is blue
 			if(remainingSpheres[i].color === value.color) {
-
 				blueBallsAreGoneAndRoundShouldEnd = false;
-								
 				// change flag to false -- because we found a blue one
-
 				// console.log('same color exists');
-
 			} 
-
 		}
-		
-		// now blueBallsAreGoneAndRoundShouldEnd contains true or false as appropriate
-
-		///=|=|=|=|=|=
 		if(blueBallsAreGoneAndRoundShouldEnd === true){
 			// document.write('round over')
 			this.levelUp();
@@ -230,27 +228,36 @@ const game = {
 
 	gameOver(){
 		if(this.points < 0){
-			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('#hidden').css('display', 'block').fadeIn(900).fadeOut(900)
 			$('canvas').css('height', '0')
 			$('.stats').css('display','none')
+			$('#clear-button').css('display','inline')
+			$('.color-buttons').css('display','none')
 			this.clearCanvas()
 			console.log('gameover');
-		} else if(this.currentLevel === this.numLevels){
-			$('.hidden-winner').css('display', 'inline-block')
+		} else if(this.currentLevel > this.numLevels){
+			$('.hidden-winner').css('display', 'inline-block').fadeIn(2000).fadeOut(2000);
+			$('.level').css('display','none')
 			$('canvas').css('height', '0')
 			$('.stats').css('display','none')
+			$('#clear-button').css('display','inline')
+			$('.color-buttons').css('display','none')
 			console.log('You won!')
 			this.clearCanvas()
 		} else if(this.play === false){
-			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('#hidden').css('display', 'block').fadeIn(900).fadeOut(900)
 			$('canvas').css('height', '0')
 			$('.stats').css('display','none')
+			$('#clear-button').css('display','inline')
+			$('.color-buttons').css('display','none')
 			console.log('You lost!')
 			this.clearCanvas()
 		} else if(this.time === this.endGame){
-			$('.hidden').css('display', 'inline-block').fadeIn(2000).fadeOut(2000)
+			$('#hidden').css('display', 'block').fadeIn(900).fadeOut(900)
 			$('canvas').css('height', '0')
 			$('.stats').css('display','none')
+			$('#clear-button').css('display','inline')
+			$('.color-buttons').css('display', 'none')
 			console.log('you lost')
 		}
 	},
@@ -262,7 +269,7 @@ const game = {
 	},
 
 	clearCanvas() {
-		ctx.clearRect(0,0,700, 700)
+		ctx.clearRect(0,0,800, 700)
 	}
 
 	
@@ -289,30 +296,33 @@ function animate(){
 // EVENT LISTENERS
 
 $('.clear-button').on('click', (event) => {
-	// game.clear()
-	// console.log('buton works')
+	
 })
 
 $('.color1').on('click', (event) => {
 	$('.stats').css('display','inline')
+	$('.color-buttons').css('bottom','0')
 	game.create('#0077cc')
 	animate()
 })
 
 $('.color2').on('click', (event) => {
 	$('.stats').css('display','inline')
+	$('.color-buttons').css('bottom','0')
 	game.create('#cc0077')
 	animate()
 })
 
 $('.color3').on('click', (event) => {
 	$('.stats').css('display','inline')
+	$('.color-buttons').css('bottom','0')
 	game.create('#cc5500')
 	animate()
 })
 
 $('.color4').on('click', (event) => {
 	$('.stats').css('display','inline')
+	$('.color-buttons').css('bottom','0')
 	game.create('#00cc55')
 	animate()
 })
