@@ -137,7 +137,7 @@ const game = {
 
 	currentLevel: 1,
 
-	time: 100,
+	time: 120,
 
 	endGame: 0,
 
@@ -302,6 +302,8 @@ $('.clear-button').on('click', (event) => {
 $('.color1').on('click', (event) => {
 	$('.stats').css('display','inline')
 	$('.color-buttons').css('bottom','0')
+	$('.logo').css('display','none');
+	$('.logo-text').css('display','none')
 	game.create('#0077cc')
 	animate()
 })
@@ -309,6 +311,8 @@ $('.color1').on('click', (event) => {
 $('.color2').on('click', (event) => {
 	$('.stats').css('display','inline')
 	$('.color-buttons').css('bottom','0')
+	$('.logo').css('display','none');
+	$('.logo-text').css('display','none')
 	game.create('#cc0077')
 	animate()
 })
@@ -316,6 +320,8 @@ $('.color2').on('click', (event) => {
 $('.color3').on('click', (event) => {
 	$('.stats').css('display','inline')
 	$('.color-buttons').css('bottom','0')
+	$('.logo').css('display','none');
+	$('.logo-text').css('display','none')
 	game.create('#cc5500')
 	animate()
 })
@@ -323,6 +329,8 @@ $('.color3').on('click', (event) => {
 $('.color4').on('click', (event) => {
 	$('.stats').css('display','inline')
 	$('.color-buttons').css('bottom','0')
+	$('.logo').css('display','none');
+	$('.logo-text').css('display','none')
 	game.create('#00cc55')
 	animate()
 })
