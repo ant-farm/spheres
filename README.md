@@ -2,7 +2,7 @@
 
 -user chooses a color from a list of colors on the screen 
 <br>
--white screen appears and the cursor is a small sphere of the chosen color
+-game play begins and the cursor is a small sphere of the chosen color
 <br>
 -other multi colored spheres appear and start moving around the screen in a random order
 <br>
@@ -11,8 +11,12 @@
 -once the user merges will all like-colored spheres on the screen the user will level up
 <br>
 -each level up will generate 15 new spheres making the game progressively harder
+<<<<<<< HEAD
 <br>
 -if the user merges with spheres of different colores then the user will lose
+=======
+<br>
+>>>>>>> 6f46aa87881a635c491a3349cda791fed9459402
 
 <br>
 Game Start
