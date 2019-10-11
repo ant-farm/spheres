@@ -2,17 +2,18 @@
 
 -user chooses a color from a list of colors on the screen 
 <br>
--white screen appears and the cursor is a small sphere of the chosen color
+-game play begins and the cursor is a small sphere of the chosen color
 <br>
 -other multi colored spheres appear and start moving around the screen in a random order
 <br>
 -user must only merge with like-colored spheres
 <br>
--as the user merges with other like colored spheres the user’s sphere will increase in size
+-once the user merges will all like-colored spheres on the screen the user will level up
 <br>
--if the user merges with spheres of different colores then the user's sphere will decrease in size
+-each level up will generate 15 new spheres making the game progressively harder
 <br>
--the user will lose the game if they merge with too many unlike the game ends when the user merges with too many unlike colors
+-if the user merges with spheres of different colores then the user will lose
+<br>
 
 <br>
 Game Start
