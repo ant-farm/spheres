@@ -8,7 +8,7 @@ const ctx = canvas.getContext('2d');
 //class
 class Sphere{
 
-
+	// contructor for the random spheres
 	constructor(){
 		
 		this.colors = ['#0077cc', '#cc0077', '#cc5500', '#00cc55'];
@@ -20,7 +20,7 @@ class Sphere{
 		this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
 
 	}
-
+	// draw function, also added radial gradients here 
 	draw(){
 		
 		ctx.beginPath();
@@ -39,7 +39,7 @@ class Sphere{
 
 	}
 
-	// make spheres move, bouncing off walls if necessary
+	// this created a 'bouncing' effect. Made the spheres stay within the walls of the canvas
 	changeDirAndMove(){
 		
 		if(this.x + this.radius > 800 || this.x - this.radius < 0){
@@ -47,11 +47,11 @@ class Sphere{
 			this.velocityX = -this.velocityX
 		} 
 		if(this.y + this.radius > 700 || this.y - this.radius < 0){
-			//changing velocity here 
+			//changing velocity here as well but for the y access
 			this.velocityY = -this.velocityY
 		}
 
-		// this will create movement to the right 
+		// this will create movement to the right by adding the velcity number onto the x and y axis
 		this.x += this.velocityX
 		this.y += this.velocityY
 		this.draw();
@@ -59,7 +59,7 @@ class Sphere{
 }
 
 class MainSphere{
-
+	//contructor for the mainsphere
 	constructor(color){
 		this.x = 200;
 		this.y = 200;
@@ -110,6 +110,7 @@ class MainSphere{
 		if(this.direction.left) this.x -= this.speed;
 		
 	}
+	//	checking for collision with the random spheres
 	checkCollision(sphere){
 		if(this.x + this.radius > sphere.x && this.x < sphere.x + sphere.radius && sphere.y < this.y + this.radius && sphere.y + sphere.radius > this.y) {
 			return true;
@@ -142,7 +143,7 @@ const game = {
 	endGame: 0,
 
 
-
+	//begins by creating the mainsphere and the random spheres
 	create(color){
 		let sphereMain = new MainSphere(color)
 		this.user = sphereMain
@@ -152,13 +153,13 @@ const game = {
 		}
 		this.startTimer()
 	}, 
-
+	//updates the dom's points and level
 	score(){
 		$('.points').text('Points: ' + this.points)
 		$('.levels').text('Level: ' + this.currentLevel)
 		
 	},
-
+	//this updates the dom's timer
 	startTimer(){
 		let $timer = $('.timer')
 		let interval = setInterval (() => {
@@ -173,7 +174,7 @@ const game = {
 		}, 1000)
 		this.gameOver();
 	},
-
+	//runs the check collision method from the main sphere class, and if a collision is dectected and the color of that sphere is the same color as the main sphere then a point will be added and the random sphere will be removed. Else the game is over
 	checkForCollisions(numSpheres){	
 		for(let i = 0; i < this.numSpheres.length; i++){
 			if(this.user.checkCollision(this.numSpheres[i])){
@@ -196,27 +197,24 @@ const game = {
 		let value = this.user;
 		// after the loop this will be false if there are still any 
 		// balls matching user color
-		let blueBallsAreGoneAndRoundShouldEnd = true // should only be true if no bb
+		let shouldEnd = true // should only be true if no same colored spheres
 		for(let i = 0; i < remainingSpheres.length; i++) {
-			// if this ball is blue
+			// if this ball is blue for example
 			if(remainingSpheres[i].color === value.color) {
-				blueBallsAreGoneAndRoundShouldEnd = false;
+				shouldEnd = false;
 				// change flag to false -- because we found a blue one
-				// console.log('same color exists');
 			} 
 		}
-		if(blueBallsAreGoneAndRoundShouldEnd === true){
-			// document.write('round over')
+		if(shouldEnd === true){
 			this.levelUp();
 			this.currentLevel += 1
 			console.log('level up ')
-			// this.startTimer()
 		}
 		// if we didn't find any (i.e all blue gone and round should end)
 		this.gameOver()
 	},
 
-
+	// displays a level up picture each time the user moves onto a new level
 	levelUp(){
 	
 		for(let i = 0; i < 15; i++){
@@ -261,13 +259,13 @@ const game = {
 			console.log('you lost')
 		}
 	},
-
+	// calls the changeDirAndMove method on the spheres class
 	moveSpheres(){
 		for(let i = 0; i < this.numSpheres.length; i++){
 			this.numSpheres[i].changeDirAndMove()
 		}
 	},
-
+	//clears the canvas
 	clearCanvas() {
 		ctx.clearRect(0,0,800, 700)
 	}
