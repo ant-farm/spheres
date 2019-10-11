@@ -15,8 +15,6 @@
 <br>
 -if the user merges with spheres of different colores then the user will lose
 =======
-<br>
->>>>>>> 6f46aa87881a635c491a3349cda791fed9459402
 
 <br>
 Game Start
