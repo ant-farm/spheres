@@ -11,11 +11,8 @@
 -once the user merges will all like-colored spheres on the screen the user will level up
 <br>
 -each level up will generate 15 new spheres making the game progressively harder
-<<<<<<< HEAD
 <br>
 -if the user merges with spheres of different colores then the user will lose
-=======
-
 <br>
 Game Start
 
